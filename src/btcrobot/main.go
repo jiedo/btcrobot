@@ -29,7 +29,7 @@ import (
 	"runtime"
 	"strconv"
 	"time"
-	"webui"
+	//	"webui"
 )
 
 func init() {
@@ -43,7 +43,7 @@ func main() {
 
 	printBanner()
 
-	go webui.RunServer()
+	// go webui.RunServer()
 
 	monitor.RunRobot()
 }

@@ -18,6 +18,7 @@
 package huobi
 
 import (
+	. "common"
 	. "config"
 	"crypto/md5"
 	"encoding/json"
@@ -133,15 +134,6 @@ type ErrorMsg struct {
 	Time int
 }
 
-type HBOrder struct {
-	Id               int
-	Type             int
-	order_price      string
-	order_amount     string
-	processed_amount string
-	order_time       int
-}
-
 func (w *HuobiTrade) check_json_result(body string) (errorMsg ErrorMsg, ret bool) {
 	if strings.Contains(body, "code") != true {
 		ret = true
@@ -179,7 +171,7 @@ type Account_info struct {
 
 func (w *HuobiTrade) GetAccount() (account_info Account_info, ret bool) {
 	pParams := make(map[string]string)
-	pParams["method"] = "GetAccount"
+	pParams["method"] = "get_account_info"
 	pParams["access_key"] = w.access_key
 	now := time.Now().Unix()
 	pParams["created"] = strconv.FormatInt(now, 10)

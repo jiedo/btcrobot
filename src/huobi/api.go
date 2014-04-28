@@ -21,7 +21,7 @@ import (
 	. "common"
 	. "config"
 	"logger"
-	"time"
+	// "time"
 )
 
 type Huobi struct {
@@ -122,17 +122,17 @@ func (w Huobi) Buy(tradePrice, tradeAmount string) (buyId string) {
 		buyId = tradeAPI.BuyLTC(tradePrice, tradeAmount)
 	}
 
-	if buyId != "0" {
-		logger.Infoln("执行买入委托成功", tradePrice, tradeAmount)
-	} else {
-		logger.Infoln("执行买入委托失败", tradePrice, tradeAmount)
-	}
+	// if buyId != "0" {
+	// 	logger.Infoln("执行买入委托成功", tradePrice, tradeAmount)
+	// } else {
+	// 	logger.Infoln("执行买入委托失败", tradePrice, tradeAmount)
+	// }
 
-	time.Sleep(3 * time.Second)
-	_, ret := w.GetAccount()
-	if !ret {
-		logger.Infoln("GetAccount failed")
-	}
+	// time.Sleep(3 * time.Second)
+	// _, ret := w.GetAccount()
+	// if !ret {
+	// 	logger.Infoln("GetAccount failed")
+	// }
 
 	return buyId
 }
@@ -146,17 +146,31 @@ func (w Huobi) Sell(tradePrice, tradeAmount string) (sellId string) {
 		sellId = tradeAPI.SellLTC(tradePrice, tradeAmount)
 	}
 
-	if sellId != "0" {
-		logger.Infoln("执行卖出委托成功", tradePrice, tradeAmount)
-	} else {
-		logger.Infoln("执行卖出委托失败", tradePrice, tradeAmount)
-	}
+	// if sellId != "0" {
+	// 	logger.Infoln("执行卖出委托成功", tradePrice, tradeAmount)
+	// } else {
+	// 	logger.Infoln("执行卖出委托失败", tradePrice, tradeAmount)
+	// }
 
-	time.Sleep(3 * time.Second)
-	_, ret := w.GetAccount()
-	if !ret {
-		logger.Infoln("GetAccount failed")
-	}
+	// time.Sleep(3 * time.Second)
+	// _, ret := w.GetAccount()
+	// if !ret {
+	// 	logger.Infoln("GetAccount failed")
+	// }
 
 	return sellId
+}
+
+func (w Huobi) GetOrders() (ret bool, orders []HBOrder) {
+	tradeAPI := NewHuobiTrade(SecretOption["huobi_access_key"], SecretOption["huobi_secret_key"])
+
+	ret, orders = tradeAPI.Get_orders()
+
+	if ret {
+		logger.Infoln("Get orders ok", len(orders))
+	} else {
+		logger.Infoln("Get orders failed")
+	}
+
+	return
 }

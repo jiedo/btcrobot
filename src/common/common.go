@@ -38,6 +38,15 @@ type Order struct {
 	Deal_amount float64
 }
 
+type HBOrder struct {
+	Id               int
+	Type             int
+	Order_price      string
+	Order_amount     string
+	Processed_amount string
+	Order_time       int
+}
+
 type MarketAPI interface {
 	GetKLine(peroid int) (ret bool, records []Record)
 }
@@ -49,4 +58,5 @@ type TradeAPI interface {
 	CancelOrder(order_id string) bool
 	GetAccount() (Account, bool)
 	GetOrderBook() (ret bool, orderBook OrderBook)
+	GetOrders() (ret bool, m []HBOrder)
 }

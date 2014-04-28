@@ -36,6 +36,8 @@ var Option map[string]string
 var TradeOption map[string]string
 var SecretOption map[string]string
 
+var CollectorOption map[string]string
+
 func init() {
 	LoadAll()
 	//fmt.Println(Config)
@@ -52,6 +54,7 @@ func LoadAll() {
 	LoadConfig()
 	LoadOption()
 	LoadSecretOption()
+	LoadCollectorOption()
 }
 
 func load_config(file string) (config map[string]string, err error) {
@@ -136,6 +139,20 @@ func LoadTrade() (err error) {
 
 func SaveTrade() error {
 	return save_config("/conf/trade.json", TradeOption)
+}
+
+func LoadCollectorOption() (err error) {
+	_CollectorOption, err := load_config("/conf/collector.json")
+	if err != nil {
+		return (err)
+	}
+	CollectorOption = make(map[string]string)
+	CollectorOption = _CollectorOption
+	return nil
+}
+
+func SaveCollectorOption() error {
+	return save_config("/conf/collector.json", CollectorOption)
 }
 
 func LoadSecretOption() (err error) {
